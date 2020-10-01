@@ -35,7 +35,13 @@ func main() {
 
 	for i := 0; i < 4; i++ {
 		go calculate(squareSize / 2, dotsCount, i, ratio)
-		sum = sum + <-ratio
+		select {
+		case receivedRatio := <-ratio:
+			sum += receivedRatio
+
+		default:
+			fmt.Printf("no value received")
+		}
 	}
 
 	fmt.Printf("%f", sum)
