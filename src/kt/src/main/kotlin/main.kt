@@ -8,7 +8,7 @@ fun main(args: Array<String>) {
 
     val deferredJob = (1..4).map {
         GlobalScope.async {
-            calculate(sizeInput / 2, dotsCountInput)
+            calculate(it, sizeInput / 2, dotsCountInput)
         }
     }
 
@@ -18,8 +18,8 @@ fun main(args: Array<String>) {
     }
 }
 
- suspend fun calculate(size: Int, dots: Int): Double = coroutineScope {
-     println("coroutine operation starts")
+ suspend fun calculate(threadId: Int, size: Int, dots: Int): Double = coroutineScope {
+     println("coroutine #$threadId operation starts")
      var inCount = 0
 
      (0..dots).forEach { _ ->
