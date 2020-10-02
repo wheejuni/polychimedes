@@ -12,10 +12,10 @@ repositories {
 }
 dependencies {
     testImplementation(kotlin("test-junit5"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.3.9")
 }
 tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "13"
+    kotlinOptions.jvmTarget = "11"
 }
 application {
     mainClassName = "MainKt"
