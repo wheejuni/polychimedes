@@ -2,14 +2,17 @@ package com.wheejuni.polychimedes.domain;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 
 public class PiCalculator implements Runnable {
 
+    private final CountDownLatch latch;
     private final List<Double> results;
     private final int size;
     private final int count;
 
-    public PiCalculator(List<Double> results, int size, int count) {
+    public PiCalculator(CountDownLatch latch, List<Double> results, int size, int count) {
+        this.latch = latch;
         this.results = results;
         this.size = size;
         this.count = count;
@@ -18,7 +21,8 @@ public class PiCalculator implements Runnable {
     @Override
     public void run() {
         Random randomGenerator = new Random();
-        int hitCount = 0;
+        double calculatedCount = count;
+        double hitCount = 0.0;
 
         for(int i = 0; i < count; i++) {
             int xPos = randomGenerator.nextInt(size);
@@ -31,6 +35,7 @@ public class PiCalculator implements Runnable {
             }
         }
 
-        results.add((double)(hitCount / count));
+        results.add((hitCount / calculatedCount));
+        latch.countDown();
     }
 }
