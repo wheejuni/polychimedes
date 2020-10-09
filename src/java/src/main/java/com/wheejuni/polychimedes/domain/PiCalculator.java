@@ -21,7 +21,6 @@ public class PiCalculator implements Runnable {
     @Override
     public void run() {
         Random randomGenerator = new Random();
-        double calculatedCount = count;
         double hitCount = 0.0;
 
         for(int i = 0; i < count; i++) {
@@ -35,7 +34,7 @@ public class PiCalculator implements Runnable {
             }
         }
 
-        results.add((hitCount / calculatedCount));
+        results.add((hitCount / (double) count));
         latch.countDown();
     }
 }
